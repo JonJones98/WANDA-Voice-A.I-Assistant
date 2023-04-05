@@ -18,7 +18,6 @@ for x in all_Commands:
         print(name+" pass")
     except:
         print(name+" failed")
-# count=2
 wanda_speak("Test Finish")
 exec(commands_list["close"])
 
