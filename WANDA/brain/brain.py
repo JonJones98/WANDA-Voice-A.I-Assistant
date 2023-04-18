@@ -103,10 +103,6 @@ def dbmatch(voice_data):
         data="null"
         wanda_speak("Command is not found")     
 def binary_search(arr, low, high, x):
-    #print("High = "+str(high))
-    #print("Low = "+str(low))
-    #print("Arr = "+str(arr))
-    #print("x = "+str(x))
     if high >= low:
         mid = (high+low)//2
         if arr[mid] in x :

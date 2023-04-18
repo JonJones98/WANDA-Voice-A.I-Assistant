@@ -1,18 +1,37 @@
-import cv2 as eyes
+import cv2
 import numpy as np
+import sys
+import face_recognition as fr
+for x in sys.argv:
+     print ("Argument: ", x)
+
 
 def face_detection():
-    detection = eyes.CascadeClassifier('D:/ProgramData/cascadeclassifier/haarcascade_frontalface_default.xml')
-    #Image Location
-    img = eyes.imread('image location')
+    cascPath = sys.argv[0]
+    faceCasade = cv2.CascadeClassifier(cascPath)
+    video_capture = cv2.VideoCapture(0)
+    while True:
+        #Capture frame-by-frame
+        ret, frame = video_capture.read()
+        gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+        faces = faceCasade.detectMultiScale(
+            gray,
+            scaleFactor = 1.1,
+            minNeighbors = 5,
+            minSize = (30, 30),
+            flags = cv2.CASCADE_SCALE_IMAGE
+        )
+        #Draw a rectangle around the faces
+        #for( x, y, w, h) in faces:
+        #    cv2.rectangle(frame, (x, y), (x + w, y + h), (0, 255, 0), 2)
 
-    #Converting image
-    gray = eyes.cvtColor(img,eyes.COLOR_BGR2GRAY)
+        #Display the resulting frame
+        cv2.imshow('Video', frame)
 
-    #Detecting Face
-    faces = face_detection.detectMultiScale(gray, 1.3, 5)
+        if cv2.waitKey(1) & 0xFF == ord('q'):
+            break
+    video_capture.release()
+    cv2.destroyAllWindows()
+face_detection()
 
-    #Drawing Rectangle
-    for (x,y,w,h) in faces:
-        img = eyes.rectangle(img,(x,y),(x+w, y+h),(255,0,0),3)
-    eyes.imwrite('Face.jpg', img)
+

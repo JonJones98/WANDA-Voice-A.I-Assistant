@@ -12,9 +12,7 @@ plm=0
 voice_data = ""
 typename=""
 
-#Action.intro(record_audio,wanda_speak)
 user_voice = record_audio()
-
 while 1:
     Action.commands()
     try:

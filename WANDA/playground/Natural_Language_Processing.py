@@ -1,7 +1,7 @@
-import nltk
-from nltk.tokenize import sent_tokenize, word_tokenize, WordPunctTokenizer
-from nltk.stem.porter import PorterStemmer
-from nltk.stem.lancaster import LandcasterStemmer
+#import nltk
+#from nltk.tokenize import sent_tokenize, word_tokenize, WordPunctTokenizer
+#from nltk.stem.porter import PorterStemmer
+#from nltk.stem.lancaster import LandcasterStemmer
 
 #Download nltk.download()
 
