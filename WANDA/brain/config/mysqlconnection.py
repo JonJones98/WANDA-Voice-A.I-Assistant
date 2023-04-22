@@ -1,9 +1,18 @@
 import pymysql.cursors
+import yaml
+import os
+path = '~/key/Host.yml'
+result = (os.path.abspath(path))
+protected_file_path = result.replace(str(result)[29:64],"")
+with open(protected_file_path) as f:
+    content = f.read()
+my_db = yaml.load(content, Loader = yaml.FullLoader)
+print("Importing MySQL Credentials...")
 class MySQLConnection:
     def __init__(self, db):
-        connection = pymysql.connect(host = 'Jonathans-Mini.lan',
-                                    user = 'root', # change the user and password as needed
-                                    password = 'ROOTROOT', 
+        connection = pymysql.connect(host = my_db["host"],
+                                    user = my_db["user"], # change the user and password as needed
+                                    password = my_db["password"], 
                                     db = db,
                                     charset = 'utf8mb4',
                                     cursorclass = pymysql.cursors.DictCursor,
@@ -40,3 +49,6 @@ class MySQLConnection:
 # connectToMySQL receives the database we're using and uses it to create an instance of MySQLConnection
 def connectToMySQL(db):
     return MySQLConnection(db)
+
+#Test Connection
+#connectToMySQL('Wanda_Commands')

@@ -2,7 +2,7 @@ from itertools import count
 import sys
 from tkinter import W
 import youtube_dl
-sys.path.insert(0,"..")
+#sys.path.insert(0,"..")
 from brain import *
 from command import *
 from models.Wanda_DB import Commands
@@ -11,7 +11,7 @@ import eel
 plm=0
 voice_data = ""
 typename=""
-
+Action.intro(record_audio,wanda_speak)
 user_voice = record_audio()
 while 1:
     Action.commands()
@@ -40,8 +40,8 @@ while 1:
     if wandaResponse == "null":
         globals()["Action"].__dict__[wandaResponse](data,wanda_speak)
     else:
-        print(wandaResponse)
-        print(voice_data)
+        #print(wandaResponse)
+        #print(voice_data)
         globals()["Action"].__dict__["start"](wandaResponse,voice_data,wanda_speak)
     
     wanda_speak("Listening...")

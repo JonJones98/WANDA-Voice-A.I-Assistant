@@ -27,11 +27,11 @@ class Action():
             cc="""{variables}={result} \n{script}""".format(variables=(x.variables),script=(x.script),result="***")
             commands_list[name]=cc
     def start(wcc,voice_data,wanda_speak):
-        print("Running start()")
+        #print("Running start()")
         a = {wcc:commands_list[wcc].replace("***","'{}'".format(str(voice_data)))}
-        print(commands_list[wcc])
+        #print(commands_list[wcc])
         commands_list.update(a)
-        print(commands_list[wcc])
+        #print(commands_list[wcc])
         exec(commands_list[wcc])
     def intro(record_audio,wanda_speak):
         class Username:
@@ -40,12 +40,10 @@ class Action():
                 self.todo=todo  
         wanda_speak('Hello my name is Wanda. What is your name?')
         voice_data = record_audio()
-        print(voice_data)
         try:
             username=voice_data.replace(('name'or'my'or'is'), '')
         except:
             username=voice_data
-        print(username)
         global user
         user=Username(username,[])
         wanda_speak('Hello, {}. nice to meet you. How can I help you today?'.format(user.name))

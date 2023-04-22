@@ -8,6 +8,7 @@ import os
 import random
 import pyttsx3
 from gtts import gTTS
+from io import BytesIO
 from command import *
 import shutil
 
@@ -17,30 +18,32 @@ mic_Check=0
 
 no_mic = 2
 def wanda_speak(audio_string):
-    tts = gTTS(text=audio_string, lang='en')
+    tts = gTTS(text=audio_string, lang='en', tld='us')
     r = random.randint(1, 1000000)
     audio_file= 'audio-'+str(r)+ '.mp3'
     tts.save("WANDA/audio/"+audio_file)
     playsound.playsound("WANDA/audio/"+audio_file)
     print(audio_string)
     os.remove("WANDA/audio/"+audio_file)
-    #shutil.rmtree("WANDA/audio/")
+    #shutil.rmtree("WANDA/audio/"+audio_file)
 def wanda_speak1(audio_string):
     ptts = pyttsx3.init()
     #Rate
     rate=ptts.getProperty('rate')
-    print(rate)
-    ptts.setProperty('rate',250)
-#Voice
-    voices=ptts.getProperty('voices')
-    print(voices)
-    ptts.setProperty('voice',voices[1].id)
+    ptts.setProperty('rate',220)
+    #Voice
+    ptts.setProperty('voice','com.apple.speech.synthesis.voice.rishi')
     ptts.say(audio_string)
     ptts.runAndWait()
-    print(audio_string)  
+    print(audio_string) 
+def wanda_speak2(audio_string):
+    mp3_fp = BytesIO() 
+    tts = gTTS('hello', lang='en')
+    tts.save()
+    playsound.playsound()
 def record_audio(ask=False):
     global no_mic
-    print(no_mic)
+    #print(no_mic)
     try:
         with sr. Microphone() as source:
             if ask:
@@ -78,16 +81,16 @@ def dbmatch(voice_data):
         name=x.name
         arr.append(str(name))
     x = voice_data.split()
-    print("dbmatch arr "+str(arr))
+   #print("dbmatch arr "+str(arr))
     global result
     for word in x:
-        print(word)
+        #print(word)
         if word in arr:
             result = binary_search(arr, 0, len(arr)-1, word)
             if result != -1:
                 break
     if result != -1:
-        print("Element is present at index", str(result))
+        #print("Element is present at index", str(result))
         global data
         data=str(arr[result])
         global wandaResponse
@@ -95,7 +98,7 @@ def dbmatch(voice_data):
             data=voice_data
         else:
             wandaResponse=voice_data.replace(data,"")
-        print("Returning values")
+        #print("Returning values")
         return data, wandaResponse
 
     else:
@@ -106,16 +109,15 @@ def binary_search(arr, low, high, x):
     if high >= low:
         mid = (high+low)//2
         if arr[mid] in x :
-            print(arr[mid])
+            #print(arr[mid])
             return mid
         elif x in arr[low:mid]:
-            print(arr[low:mid])
-            print("check low")
+            #print(arr[low:mid])
+            #print("check low")
             return binary_search(arr, low, mid-1,x)
         else:
-            print(arr[mid:high])
-            print("check high")
+            #print(arr[mid:high])
+            #print("check high")
             return binary_search(arr,mid+1,high,x)
     else:
         return -1
-
